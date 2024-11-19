@@ -11,7 +11,7 @@ describe('Validate h2 tag text', () => {
         cy.visit('https://next-note-taking.vercel.app/'); // Replace with your website URL
 
         // Expected text
-        const expectedText = 'My mahesh'; // Replace with your expected text
+        const expectedText = 'Changes'; // Replace with your expected text
 
         // Locate the h2 tag and validate its text
         cy.get('h2')
