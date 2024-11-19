@@ -1,0 +1,40 @@
+name: Run Specific Cypress Test
+
+on:
+  push:
+    branches:
+      - main # Trigger on pushes to the main branch
+  pull_request:
+    branches:
+      - main # Trigger on pull requests to the main branch
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # Install dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # Run the specific Cypress test
+      - name: Run Cypress Test File
+        run: npx cypress run --spec "cypress/e2e/mahesh.cy.js"
+
+      # (Optional) Upload test results for failed tests
+      - name: Upload Cypress Results
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-results
+          path: cypress/screenshots/,cypress/videos/
